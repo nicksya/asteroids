@@ -1,4 +1,4 @@
-import pygame
+import pygame # pyright: ignore[reportMissingImports]
 from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED
 from circleshape import CircleShape
 

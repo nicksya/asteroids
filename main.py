@@ -1,7 +1,7 @@
-import pygame
+import pygame # pyright: ignore[reportMissingImports]
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state
-from player import Player
+from player import Player # pyright: ignore[reportMissingImports]
 
 def main():
     print("Starting Asteroids with pygame version: VERSION")

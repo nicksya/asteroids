@@ -1,4 +1,4 @@
-import pygame
+import pygame # pyright: ignore[reportMissingImports]
 from constants import LINE_WIDTH
 
 # Base class for game objects
