@@ -5,6 +5,7 @@ from logger import log_state, log_event
 from player import Player # pyright: ignore[reportMissingImports]
 from asteroid import Asteroid # pyright: ignore[reportMissingImports]
 from asteroidfield import AsteroidField # pyright: ignore[reportMissingImports]
+from shot import Shot # pyright: ignore[reportMissingImports]
 
 def main():
     print("Starting Asteroids with pygame version: VERSION")
@@ -18,10 +19,12 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
     
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable)
     Player.containers = (updatable, drawable)
+    Shot.containers = (shots, updatable, drawable)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     asteroid_field = AsteroidField()
@@ -35,6 +38,8 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
+        #for thing in updatable:
+        #    thing.update(dt)
         updatable.update(dt)
 
         for asteroid in asteroids:
@@ -43,10 +48,13 @@ def main():
                 print("Game over!")
                 sys.exit()
 
+            for shot in shots:
+                if shot.collides_with(asteroid):
+                    log_event("asteroid_shot")
+                    asteroid.split()
+                    shot.kill()
+    
         screen.fill("black")
-
-        #for thing in updatable:
-        #    thing.update(dt)
 
         for thing in drawable:
             thing.draw(screen)
