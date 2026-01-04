@@ -1,6 +1,7 @@
 import pygame # pyright: ignore[reportMissingImports]
+import sys
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ASTEROID_MAX_RADIUS
-from logger import log_state
+from logger import log_state, log_event
 from player import Player # pyright: ignore[reportMissingImports]
 from asteroid import Asteroid # pyright: ignore[reportMissingImports]
 from asteroidfield import AsteroidField # pyright: ignore[reportMissingImports]
@@ -35,6 +36,12 @@ def main():
                 return
 
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
 
         screen.fill("black")
 
